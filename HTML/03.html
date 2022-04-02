@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>彩色文字</title>
+    <style>
+        div{
+            width: 401px;
+            height: 300px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <input type="text" name="" id="txt" value="">
+    <input type="button" name="" id="btn" value="提交">
+
+    <script>
+        // 获取页面元素
+        // getElementsByTagName 获取的是页面中所有的div标签元素 构成一个伪数组 所以要获取元素内容 要在后面加下标
+        var oDiv = document.getElementsByTagName("div")[0];   //只取第一个div标签
+        var oTxt = document.getElementById("txt");
+        var oBtn = document.getElementById("btn");
+        
+        var clrArr = ['yellow', 'grey', 'red', 'green', 'blue'];
+
+        // 内容输入
+        function inputMessage(){
+            var txt = oTxt.value;
+            var index = 0;
+            var str = '';
+            //遍历输入内容 获取每个字
+            for(var i = 0; i < txt.length; i++){
+                // 让每个字都是 一个span块
+                str += '<span style= "background-color: ' + clrArr[index++ % clrArr.length] +'">'  + txt.charAt(i) + '</span>';
+            }
+            oDiv.innerHTML += str;
+        }
+        // 按钮点击 调用传输函数
+        oBtn.onclick = function(){
+            inputMessage();
+        }
+        
+
+    </script>
+
+</body>
+</html>
