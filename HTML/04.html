@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>隔行变色</title>
+    <style>
+        .color{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 
+        原理 ： 遍历每个li标签 然后if来选取隔行 然后添加类 再用css来设置颜色
+     -->
+    <ul>
+        <li>A</li>
+        <li>B</li>
+        <li>C</li>
+        <li>D</li>
+        <li>E</li>
+        <li>F</li>
+        <li>F</li>
+        <li>F</li>
+        <li>F</li>
+        <li>F</li>
+        <li>F</li>
+    </ul>
+
+    <script>
+        // 1、
+        var oUl = document.getElementsByTagName("ul");
+        //获取 当前对象中的所有 元素子节点 返回li
+        // childNodes 获取的包括（文本节点 元素节点）
+        var oLi= oUl[0].children;
+
+        // 2、
+        // var oLi = document.getElementsByTagName("li");
+        
+        for(var i = 0; i < oLi.length; i++){
+            if(i%2 != 0){
+                oLi[i].className = "color";
+            }
+            else{
+                continue;
+            }
+        }
+        
+    </script>
+</body>
+</html>
