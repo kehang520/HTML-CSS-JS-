@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>进度条</title>
+    <style>
+
+        #box{
+            height: 50px;
+            border: 1px solid #000;
+        }
+        #smallbox{
+            /* width: 0; */
+            height: 50px;
+            background-color: rgb(105, 210, 236);
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div id="smallbox"></div>
+        <span></span>
+    </div>
+    <script>
+        var oDiv1 = document.getElementById("box");
+        var oDiv2 = document.getElementById("smallbox");
+        var oSpan = document.getElementsByTagName("span")[0];
+
+        var start = 0;
+        var end = 500;
+
+        oDiv1.style.width = end + 'px';
+        oDiv2.style.width = start + 'px';
+        
+        // 让小盒子宽度不断增加
+        var timer =setInterval(function(){
+            oDiv2.style.width = parseInt(oDiv2.style.width) + 1 + 'px';
+            oSpan.innerHTML =  (100*(parseInt(oDiv2.style.width)/end)).toFixed(2) + '%';
+            if(parseInt(oDiv2.style.width) == end){
+                clearInterval(timer);
+                alert("加载完毕！")
+            }
+            
+        }, 10)
+
+ 
+        
+
+        
+
+        // 记录小盒子宽度情况
+
+
+    </script>
+</body>
+</html>
