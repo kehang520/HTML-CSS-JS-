@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>求两个数中的最大值</title>
+</head>
+<body>
+
+
+
+    <script>
+        // 创建元素节点对象
+        var h = document.createElement("h3");
+        var h2 = document.createElement("h3");
+    
+        // 创建文本节点对象
+        var hInp = document.createElement("input")
+        var hTxt = document.createTextNode("请输入一个数：");
+        var hTxt2 = document.createTextNode("请输入一个数：");
+        var hInp2 = document.createElement("input");
+
+        // 给文本节点对象添加属性和属性值
+        hInp.type = "text";
+        hInp.id = 'txt1';
+        hInp2.type = "text";
+        hInp2.id = 'txt1';
+        // class是保留字  添加class属性使用className
+        hInp.className = "txt";
+        hInp2.className = "txt";
+        
+        // 追加文本节点到h中
+        h.appendChild(hTxt);
+        h.appendChild(hInp);
+        h2.appendChild(hTxt2);
+        h2.appendChild(hInp2);
+        // 追加到body中
+        document.body.appendChild(h);
+        document.body.appendChild(h2);
+
+        // 创建两个按钮
+        var oBtn = document.createElement("input");
+        var oBtn2 = document.createElement("input");
+        
+        // 给两个按钮添加文本属性
+        oBtn.type = "button";
+        oBtn2.type = "button";
+        oBtn.value = "求最大值";
+        oBtn2.value = "清空";
+        // 追加按钮到body中
+
+        document.body.appendChild(oBtn);
+        document.body.appendChild(oBtn2);
+
+        // 获取输入的数
+        var oInps = document.getElementsByTagName("input");
+
+
+        // 给按钮添加点击事件
+        oBtn.onclick = function(){
+            var one = parseInt(oInps[0].value);
+            var two = parseInt(oInps[1].value);
+            var max= one > two ? one : two;
+            alert(max); 
+        }
+
+        oBtn2.onclick = function(){
+            oInps[0].value = '';
+            oInps[1].value = '';
+        }
+    
+
+    </script>
+
+
+
+
+</body>
+</html>
