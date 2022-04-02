@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>留言板</title>
+</head>
+<body>
+    <input type="text" name="" id="txt" value="">
+    <input type="button" name="" id="btn" value="留言">
+    <ul>
+    </ul>
+
+    <script>
+        var oTxt = document.getElementById("txt");
+        var oBtn = document.getElementById("btn");
+        var oUl = document.getElementsByTagName("ul")[0];
+
+        
+        oBtn.onclick = function(){
+            var li = document.createElement("li");
+            li.innerHTML = oTxt.value;
+
+            /*
+			父级.insertBefore(新的元素，被插入的元素) 方法 在指定元素前面插入一个新元素
+			在ie下如果第二个参数的节点不存在，会报错
+			在其他标准浏览器下如果第二个参数的节点不存在，则会以appendChild的形式进行添加
+            */
+            // oUl.insertBefore(li, oUl.children[0]);  //每次都插在oUl下的第一个位置
+            // 兼容
+            if ( oUl.children[0] ) {
+                oUl.insertBefore( li, oUl.children[0] );
+            } else {
+                oUl.appendChild( li );
+            }
+            
+
+            var a = document.createElement("a");
+            a.innerHTML = "删除";
+            a.href = "#"
+            li.appendChild(a);
+            a.onclick = function(){
+                // a节点为 li节点的子结点 点击 删除该a节点所在的li节点
+                oUl.removeChild(this.parentNode);
+            }
+
+
+        }
+    </script>
+</body>
+</html>
