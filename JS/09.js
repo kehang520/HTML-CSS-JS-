@@ -1,4 +1,4 @@
-//定义初始数组
+//定义初始数组对象
 var arr = [
     {id:1001, name:"张三", age: 18, sex:"男", salary:20000, city:"上海"},
     {id:1002, name:"李四", age: 18, sex:"男", salary:10000, city:"北京"},
@@ -17,7 +17,18 @@ function render(){
         // 创建一条数据
         var tr = document.createElement('tr');
         // 向tr中填入信息
-        tr.innerHTML = "<td>"+ arr[i].id + "</td><td>"+ arr[i].name  +"</td><td>" + arr[i].age +"</td><td>"+ arr[i].sex  +"</td><td>" + arr[i].salary + "</td><td>" + arr[i].city + "</td><td><a href = 'javascript:;' id = '"+ i + "'>删除</a></td>";
+        // 写法 1
+        // tr.innerHTML = "<td>"+ arr[i].id + "</td><td>"+ arr[i].name  +"</td><td>" + arr[i].age +"</td><td>"+ arr[i].sex  +"</td><td>" + arr[i].salary + "</td><td>" + arr[i].city + "</td><td><a href = 'javascript:;' id = '"+ i + "'>删除</a></td>";
+        // 写法 2 模板字符串
+        tr.innerHTML = `
+            <td>${arr[i].id}</td>
+            <td>${arr[i].name}</td>
+            <td>${arr[i].age}</td>
+            <td>${arr[i].sex}</td>
+            <td>${arr[i].salary}</td>
+            <td>${arr[i].city}</td>
+            <td><a href = 'javascript:;' id = '"+ ${i}+ "'>删除</a></td>
+        `
         tbody.appendChild(tr);
     }
 }
