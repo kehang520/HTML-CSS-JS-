@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>按键控制div运动</title>
+    <style>
+
+        #box{
+            width: 500px;
+            height: 500px;
+            border: 1px solid #000;
+            position: relative;
+        }
+        #small{
+            width: 100px;
+            height: 100px;
+            background-color: rgb(62, 208, 245);
+            position: absolute;
+            left: 0;
+            top: 0;
+   
+        }
+    </style>
+</head>
+
+
+<body>
+    <!-- 一、	利用键盘的方向键或者WASD控制一个Div运动，并设置边界 -->
+
+    <div id="box">
+        <div id="small" style="width: 100px; height: 100px;"></div>
+    </div>
+    <script>
+        var oDiv = document.getElementById("box");
+        var oSmall = document.getElementById("small");
+        console.log(oSmall.offsetWidth);
+
+        document.onkeydown = function (e){
+            var e = e || window.event;
+            // alert(e.keyCode);
+            // w = 87, a = 65,s = 83, d = 68
+            // 上 38，左 37， 下 40 右 39
+            if(e.keyCode == 87 || e.keyCode == 38){
+                //设置边界
+                if(oSmall.offsetTop){
+                    // offsetTop 是当前对象距离其父元素顶部的距离， 只能获取不能设置
+                    // 而 style.top 可以获取也可以设置， 所以要用style.top来接收改变后的值
+                    oSmall.style.top = oSmall.offsetTop - 1 + "px";
+                }       
+            }
+            else if(e.keyCode == 65 || e.keyCode == 37){
+                if(oSmall.offsetLeft){
+                    oSmall.style.left = oSmall.offsetLeft - 1 + 'px';
+                }
+            }
+            else if(e.keyCode == 83 || e.keyCode == 40){
+                if(oSmall.offsetTop < oDiv.offsetHeight-oSmall.offsetHeight){
+                    oSmall.style.top = oSmall.offsetTop + 1 + 'px';
+                }
+            }
+            else if(e.keyCode == 68 || e.keyCode == 39){
+                // 用大盒子真实宽度 减去小盒子真实宽度 限制右移范围
+                if(oSmall.offsetLeft < oDiv.offsetWidth-oSmall.offsetWidth){
+                    oSmall.style.left = oSmall.offsetLeft + 1 + 'px';
+                }
+            }
+        }
+        
+
+
+    </script>
+</body>
+</html>
