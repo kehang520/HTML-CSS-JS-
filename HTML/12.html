@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>收缩展开案例</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .main{
+            width: 280px;
+            border: 1px solid #000;
+            /* -webkit-line-clamp: 2;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            overflow: hidden; */
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <p>charAt():根据下标获取指定的字符串，返回指定位置的字符串。
+            charCodeAt():根据下标获取指定字符的编码。
+            扩展：String.fromCharCode():根据编码返回字符</p>
+        <a href="#">收缩</a> 
+    </div>
+
+    <script>
+        var oA = document.querySelector('a');
+        var oP = document.querySelector('p');
+
+        // 第三方 作为后面收缩展开复制
+        var str = oP.innerText;
+        // 添加开关原理
+        var onOff = true;
+        oA.addEventListener('click', function(evt){
+            var e = evt || window.event;
+            if(onOff){
+                oP.innerText = str.substring(0,20);
+                oA.innerText = '展开';
+            }
+            else{
+                oP.innerText = str;
+                oA.innerText = '收缩'; 
+            }
+            onOff = !onOff;
+        })
+        
+
+    </script>
+</body>
+</html>
