@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>侧边伸缩框</title>
+    <style>
+        .box{
+          position: fixed;
+          right: 0;
+          bottom: 200px;
+          width: 40px;
+          height: 40px;
+          text-align: center;
+          line-height: 40px;
+          color: #fff;
+        }
+        .question{
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 200px;
+          height: 40px;
+          background-color: red;
+          z-index: -1;
+        }
+      </style>
+</head>
+<body>
+    <div class="box">
+        <span><-</span>
+        <div class="question">我有问题</div>
+    </div>
+    
+    <script src="./js/animate.js"></script>
+    <script>
+        var oBox = document.querySelector('.box');
+        var question = document.querySelector('.question');
+
+        oBox.addEventListener('mouseenter', function(){
+            // 让内容左移显示出来
+            animate(question, -160, function(){
+                oBox.children[0].innerHTML = '->';
+            })
+        })
+
+        oBox.addEventListener('mouseleave', function(){
+            animate(question, -0 , function(){
+                oBox.children[0].innerHTML = '<-';
+            })
+        })
+    </script>
+</body>
+</html>
