@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多个目标位置移动</title>
+    <style>
+        .box{
+            position:absolute;
+            width: 100px;
+            height: 100px;
+            background-color: rgb(62, 217, 238);
+        }
+    </style>
+</head>
+<body>
+    <button class="one">100</button>
+    <button class="two">500</button>
+    <div class="box"></div>
+
+    <script>
+        var btn1 = document.querySelector('.one');
+        var btn2 = document.querySelector('.two');
+        var oDiv = document.querySelector('.box');
+
+        function animate(obj, target){
+            // 防止计时器叠加
+            clearInterval(obj.timer);
+            obj.timer = setInterval( function(){
+                // 设置变化步长
+                var step = (target - obj.offsetLeft) / 10;
+                // 目标变换处理 
+                // 0.4 -> 1,  -0.4 -> -1
+                step = Math.ceil(step) ? Math.ceil(step) : Math.floor(step);
+                console.log(step)
+                if(obj.offsetLeft == target){
+                    clearInterval(obj.timer);
+                }
+                obj.style.left = obj.offsetLeft + step + 'px';
+            }, 30);
+        }
+
+        btn1.addEventListener('click', function(){
+            animate(oDiv, 100)
+        })
+
+        btn2.addEventListener('click', function(){
+            animate(oDiv, 500)
+        })
+    </script>
+    
+</body>
+</html>
