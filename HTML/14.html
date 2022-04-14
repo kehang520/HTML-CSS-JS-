@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>返回顶部</title>
+    <style>
+        .main{
+            margin: 0 auto;
+            width: 1000px;
+        }
+        .box1{
+            height: 500px;
+            background-color: rgb(243, 45, 45);
+        }
+        .box2{
+            height: 500px;
+            background-color: rgb(92, 205, 242);
+        }
+        .box3{
+            height: 500px;
+            background-color: rgb(92, 236, 135);
+        }
+
+        .back{
+            position: fixed;
+            top: 500px;
+            right: 200px;
+            display: none;
+            width: 50px;
+            height: 50px;
+            background-color: rgb(90, 237, 213);
+            color: yellow;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="box1 main"></div>
+    <div class="box2 main"></div>
+    <div class="box3 main"></div>
+    <div class="back">返回顶部</div>
+
+    <script>
+        var box2 = document.querySelector('.box2');
+        var back = document.querySelector('.back');
+
+        // box2 到顶部的距离
+        var box2top = box2.offsetTop;
+
+        // back 显示与隐藏
+        document.addEventListener('scroll', function(){
+            // console.log(window.pageYOffset)
+            if(window.pageYOffset >= box2top){
+                // 让返回顶部显示
+                back.style.display = 'block';
+            }else{
+                back.style.display = 'none';
+            }
+        })
+
+        // 点击 返回顶部
+        back.addEventListener('click', function(){
+            // 要让 window.scroll(0, 0)
+            animate(window,0);
+        })
+
+
+        // 返回顶部 缓动动画
+        function animate(obj, target, fn){
+        // 防止计时器叠加
+        clearInterval(obj.timer);
+        obj.timer = setInterval( function(){
+            // 设置变化步长
+            var step = (target - obj.pageYOffset) / 10;
+            // 目标变换处理 
+            // 0.4 -> 1,  -0.4 -> -1
+            step = Math.ceil(step) ? Math.ceil(step) : Math.floor(step);
+            // console.log(step)
+            if(obj.pageYOffset == target){
+                clearInterval(obj.timer);
+                // 函数回调
+                // fn 为真就 调用 fn(), 为假不执行
+                fn && fn();
+                // 相当于 
+                // if(fn){
+                //  fu{}
+                // }
+            }
+            obj.scroll(0,obj.pageYOffset + step);
+        }, 15);
+    }
+    </script>
+    
+</body>
+</html>
