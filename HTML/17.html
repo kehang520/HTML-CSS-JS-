@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>密码</title>
+    <style>
+        .box{
+            position: relative;
+            margin: 100px auto;
+            width: 400px;  
+            /* background-color: rgb(88, 197, 230);  */
+        }
+        .psw{
+            border-bottom: 1px solid #ccc;
+        }
+        #password{
+            width: 370px;
+            height: 30px;
+            /* 去除轮廓 */
+            border: 0;
+            outline: none;
+        }
+        .psw img{
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 24px;
+        }
+        ul{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 180px;
+            height: 20px;
+            margin: 10px;
+            list-style: none;
+            border: 1px solid gainsboro;
+            border-radius: 15px;
+            padding-inline-start: 0;
+        }
+        ul li{      
+            margin: 4px;
+            width: 50px;
+            height: 10px;
+            background-color: silver;
+        }
+        ul li:nth-child(1){
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+        ul li:nth-child(3){
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        .strong{
+            display: flex;
+            justify-content: space-between;
+            margin: 10px;
+            margin-left: 30px;
+            width: 145px;
+        }
+        .strong div{
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+    <!-- 
+        密码强度显示
+        密码显示隐藏
+     -->
+
+     <div class="box">
+         <div class="psw">
+            <input type="password" id="password">
+             <img src="./img/close.png" alt="">
+         </div>
+         <ul>
+             <li></li>
+             <li></li>
+             <li></li>
+         </ul>
+         <div class="strong">
+             <div>弱</div>
+             <div>中</div>
+             <div>强</div>
+         </div>
+     </div>
+
+     <script>
+         var password = document.querySelector('#password');
+         var img = document.querySelector('img');
+         var ul = document.querySelector('ul');
+         var tip = document.querySelector('.strong');
+
+         // 密码显示隐藏
+         var flag = true
+         img.onclick = function(){
+             if(flag){
+                img.src = './img/open.png';
+                password.type = 'text';
+             }else{
+                img.src = './img/close.png';
+                password.type = 'password'; 
+             }
+             flag = !flag;
+         }
+
+         // 密码强度设定
+        password.onkeyup = function(){      // onkeyup 释放按键键盘时触发
+            var str = password.value.toUpperCase();     // 将字符串转换为大写
+            console.log(str);
+            // 标准设定，判断是否含有
+            var hasNumber = false;
+            var hasChar = false;
+            var hasSign = false;
+
+            for(var i=0; i<str.length; i++){
+				//判断是否出现数字  阿斯克码表
+				if(str.charCodeAt(i)>=48 &&  str.charCodeAt(i)<=57){
+					hasNumber = true;
+					continue;
+				}
+				//判断是否出现字母
+				if(str.charCodeAt(i)>=65 && str.charCodeAt(i)<=90){
+					hasChar = true;
+					continue;
+				}
+				//判断是否出现特殊符号
+				if( !(str.charCodeAt(i)>=48 && str.charCodeAt(i)<=57) && !(str.charCodeAt(i)>=65 && str.charCodeAt(i)<=90)){
+					hasSign = true;
+					continue;
+				}
+			}
+            // 等级判断显示
+            if(hasSign && hasChar && hasNumber){
+                clear();
+                ul.children[0].style.background = 'red';
+                ul.children[1].style.background = 'orange';
+                ul.children[2].style.background = 'green';
+                tip.children[0].style.visibility = 'hidden';
+                tip.children[1].style.visibility = 'hidden';
+                // 显示
+                tip.children[2].style.visibility = 'visible';
+                
+            }
+            else if(hasChar && hasNumber || hasChar && hasSign || hasSign && hasNumber){
+                clear();
+                ul.children[0].style.background = 'red';
+                ul.children[1].style.background = 'orange';
+                tip.children[0].style.visibility = 'hidden';
+                tip.children[1].style.visibility = 'visible';
+                tip.children[2].style.visibility = 'hidden';
+            }
+            else{
+                clear();
+                ul.children[0].style.background = 'red';
+                tip.children[0].style.visibility = 'visible';
+                tip.children[1].style.visibility = 'hidden';
+                tip.children[2].style.visibility = 'hidden';
+            }
+
+            // 每次重新输入时， 先清空强度条背景颜色
+            function clear(){
+                for(var i = 0; i < ul.children.length; i++){
+                    ul.children[i].style.background = 'silver';
+                }
+            }
+            
+
+            // 输入框为空时， 让强度和颜色都还原
+            if(str == ''){
+                tip.children[0].style.visibility = 'hidden';
+                ul.children[0].style.background = 'silver';
+            }
+
+        }
+        
+
+     </script>
+</body>
+</html>
