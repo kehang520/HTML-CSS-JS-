@@ -1,0 +1,59 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+h1 {
+  text-align: center;
+  margin: 50px 0;
+}
+.info {
+  margin: 0 auto;
+  width: 900px;
+  text-align: center;
+}
+.info input {
+  width: 80px;
+  height: 24px;
+  border-radius: 5px;
+  border-collapse: collapse;
+  border: 1px solid #b8daff;
+  padding-left: 5px;
+}
+.info .age {
+  width: 50px;
+}
+.info select #sex {
+  width: 50px;
+}
+.info .submit {
+  height: 24px;
+  width: 60px;
+  background-color: #004085;
+  color: #fff;
+}
+table {
+  margin: 0 auto;
+  width: 800px;
+  border-collapse: collapse;
+  border: 1px solid #000;
+}
+table th {
+  border: 1px solid #b8daff;
+  background-color: #cfe5ff;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: 400;
+}
+table tbody {
+  text-align: center;
+}
+table tbody td {
+  border: 1px solid #b8daff;
+  padding: 10px;
+}
