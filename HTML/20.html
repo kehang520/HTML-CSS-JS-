@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品全选与反选</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .wrap{
+            margin: 100px auto;
+            width: 300px;
+        }
+        table{
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 300px;
+            height: 200px;
+        }
+        table thead{
+            background-color: rgb(28, 170, 236);
+            height: 50px;
+        }
+        th,td{
+            border: 1px solid #d0d0d0;
+            padding: 10px;
+        }
+        tbody tr{
+            background-color: #f0f0f0;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <table>
+            <thead>
+                <th>
+                    <input type="checkbox" id="checkAll">
+                </th>
+                <th>商品</th>
+                <th>价格</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="" id="">
+                    </td>
+                    <td>iPhone8</td>
+                    <td>8000</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="" id="">  
+                    </td>
+                    <td>iPhone8</td>
+                    <td>8000</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="" id="">
+                    </td>
+                    <td>iPhone8</td>
+                    <td>8000</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="" id="">
+                    </td>
+                    <td>iPhone8</td>
+                    <td>8000</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        var checkAll =  document.querySelector('#checkAll');
+        var checks = document.querySelector('tbody').querySelectorAll('input');
+        console.log(checks);
+        checkAll.addEventListener('click', function(){
+            for(var i = 0; i < checks.length; i++){
+                // this.checked 返回 true false
+                checks[i].checked = this.checked;
+            }
+        })
+
+        // 当依次点击所有都选中时 ， checkAll 也显示选中
+        for(var i = 0; i < checks.length; i++){
+            checks[i].onclick = function(){
+                var flag = true;
+                // 每次点击时，都要判断是否都已选中
+                for(var i = 0; i < checks.length; i++){
+                    if(!checks[i].checked){
+                        flag = false;
+                        break;  // 如果存在有未选中的 直接退出循环
+                    }
+                }
+                checkAll.checked = flag;
+            } 
+        }
+
+    </script>
+</body>
+</html>
