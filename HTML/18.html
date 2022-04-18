@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数组去重方法总结</title>
+</head>
+<body>
+
+    <script>
+        // 第一种 每个元素依次对比
+        console.log("第一种")
+        var arr = [1,23,1,1,1,3,24,23,5,6,7,99];
+        console.log("去重前：" + arr);
+        function noRepeat1(arr){
+            for(var i = 0; i < arr.length-1; i++){
+                for(var j = i+1; j < arr.length; j++){
+                    if(arr[i] === arr[j]){
+                        arr.splice(j,1);    // 返回被删元素数组，影响原数组
+                        // 数组下标也减一
+                        j--;
+                    }
+                }
+            }
+             return arr;
+        }
+
+        var arr2 = noRepeat1(arr);
+        console.log('去重后：' + arr2);
+
+        // 第二种 indexOf() 查找数组中某指定元素的位置, 返回查找到的第一个位置
+        console.log("第二种")
+        var arr = [1,23,1,1,1,3,24,23,5,6,7,99];
+        console.log("去重前：" + arr);
+        function noRepeat2(arr){
+            for(var i = 0; i < arr.length; i++){
+                if(arr.indexOf(arr[i]) != i){
+                    arr.splice(i, 1);
+                    i--;
+                }
+            }
+            return arr;
+        }
+
+        var arr2 = noRepeat1(arr);
+        console.log('去重后：' + arr2);
+
+        // 第三种 利用数组中的filter方法 ， 以indexOf来执行筛选条件
+        // filter() 方法创建一个新的数组，新数组中的元素是通过检查指定数组中符合条件的所有元素。
+        console.log("第三种")
+        var arr = [1,23,1,1,1,3,24,23,5,6,7,99];
+        console.log("去重前：" + arr);
+        // value 当前元素的值， index 当前元素的索引值。 self 当前元素属于的数组对象
+        var newArr = arr.filter(function(value, index, self){
+            // 符合的条件
+            return self.indexOf(value) === index;
+        })
+
+        console.log('去重后：' + newArr);
+
+
+        // 第四种 定义新数组，利用indexOf(), push元素到新数组中
+        console.log('第四种')
+        var arr = [1,23,1,1,1,3,24,23,5,6,7,99];
+        console.log('去重前：' + arr);
+
+        function noRepeat4(arr){
+            var newArr = [];
+            for(var i = 0; i < arr.length; i++){
+                if(arr.indexOf(arr[i]) == i){
+                    newArr.push(arr[i]);
+                }
+            }
+            return newArr;
+        }
+        console.log('去重后：' + newArr);
+
+
+        // 第五种 利用空对象来记录新数组中已经存储过的元素
+        console.log('第五种');
+        var arr = [1,23,1,1,1,3,24,23,5,6,7,99];
+        console.log('去重前：' + arr);
+
+        var obj = {};
+        var newArr = [];
+        for(var i=0 ; i < arr.length; i++){
+            // obj 中没有这个数时，让其存入新数组中
+            if(!obj[arr[i]]){
+                obj[arr[i]] = true;
+                newArr.push(arr[i]);
+            }
+        }
+
+        console.log('去重后：' + newArr);
+        
+
+        // 第六种 借助新数组 判断新数组中是否存在该元素如果不存在 则将此元素添加到新数组中
+        console.log('第六种');
+        var arr = [1,23,1,1,1,3,24,23,5,6,7,99];
+        console.log('去重前：' + arr);
+
+        function noRepeat6(arr){
+            var newArr = [];
+            for(var i = 0; i < arr.length; i++){
+                // indexOf() 找不到指定元素时会返回 -1
+                if(newArr(indexOf(arr[i]) == -1)){
+                    newArr.push(arr[i]);
+                }
+            }
+        }
+        console.log('去重后：' + newArr);
+
+        // 第七种 利用临时变量、数组排序 判断新数据中是否存在该元素 如果不存在则将此元素添加到新数组中
+        // （原数组长度不变但被按字符串顺序排序）
+        console.log('第七种');
+        var arr = [1,23,1,1,1,3,24,23,5,6,7,99];
+        console.log('去重前：' + arr);
+
+        function noRepeat7(arr){
+            var newArr = [];
+            var temp;
+            arr.sort();
+            temp = arr[0];
+            newArr.push(arr[0]);
+            for(var i = 0; i < arr.length; i++){
+                if(arr[i] != temp){
+                    newArr.push(arr[i]);
+                    temp = arr[i];  // 更新临时变量
+                }
+            }
+            return newArr;
+
+        }
+        console.log('去重后：' + newArr);
+        
+
+        // 第八种 直接改变原数组， 并且去重后的数组被排序
+        console.log('第八种');
+        var arr = [1,23,1,1,1,3,24,23,5,6,7,99];
+        console.log('去重前：' + arr);
+
+        function noRepeat8(arr){
+            var temp;
+            arr.sort();
+            temp = arr[0];
+            for(var i = 1; i < arr.length; i++){
+                if(arr[i] == temp){
+                    arr.splice(i,1);
+                    i--;
+                }else{
+                    temp = arr[i];
+                }         
+            }
+            return arr;
+        }
+        var arr2 = noRepeat8(arr);
+        console.log('去重后：' + arr2);
+
+        // 第9种 双层循环改变原数组
+        console.log('第九种');
+        var arr = [1,23,1,1,1,3,24,23,5,6,7,99];
+        console.log('去重前：' + arr);
+
+        function noRepeat9(arr){
+            for(var i = 0; i < arr.length; i++){
+                for(var j = 0; j < arr.length; j++){
+                    if(arr[i] == arr[j] && i != j){
+                        arr.splice(j, 1);
+                        j--;
+                    }
+                }
+            }
+            return arr;
+        }
+        var arr2 = noRepeat9(arr);
+        console.log('去重后：' + arr2);
+
+        // 第10种 借助ES6提供的Set结构
+        console.log('第十种');
+        var arr = [1,23,1,1,1,3,24,23,5,6,7,99];
+        console.log('去重前：' + arr);
+
+        function noRepeat10(arr){
+            var newArr = [];
+            var myset = new Set(arr); // Set结构不能有重复的数据
+            for(var val of myset){
+                newArr.push(val);
+            }
+            return newArr;
+        }
+        var arr2 = noRepeat10(arr);
+        console.log('去重后：' + arr2); 
+    </script>
+</body>
+</html>
