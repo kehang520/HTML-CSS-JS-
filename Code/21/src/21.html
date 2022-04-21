@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery效果动画案例</title>
+    <script src="../jquery-3.6.0.min.js"></script>
+    <style>
+        .box{
+            position: relative;
+            width: 560px;
+            height: 540px;
+            background-color: rgb(47, 218, 227);
+            margin-bottom: 10px;
+        }
+        .operate{
+            position: fixed;
+            top: 570px;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+    <div class="operate">
+        <button class="btn1">显示</button>
+        <button class="btn2">隐藏</button>
+        <button class="btn3">显示/隐藏</button>
+        <button class="btn4">淡出</button>
+        <button class="btn5">淡入</button>
+        <button class="btn6">淡出/淡入</button>
+        <button class="btn7">上滑</button>
+        <button class="btn8">下滑</button>
+        <button class="btn9">滑入/滑出</button>
+        <button class="btn10">动画</button>
+        <button class="btn11">暂停</button>
+    </div>
+    
+    
+    <script>
+        $(function(){
+            // 显示与隐藏
+            $('.btn1').click(function(){
+                // 参数1：可填 slow、fast、毫秒， 参数2 callback
+                $('.box').show(3000, function(){
+                    alert('显示完成！');
+                });
+            })
+            $('.btn2').click(function(){
+                $('.box').hide('slow');
+            })
+            $('.btn3').click(function(){
+                // display 和 display: none的切换
+                $('.box').toggle()
+            })
+            
+            // 淡出与淡入
+            $('.btn4').click(function(){
+                // 淡出
+                $('.box').fadeOut('slow');
+            })
+            $('.btn5').click(function(){
+                // 淡入
+                $('.box').fadeIn();
+            })
+            $('.btn6').click(function(){
+                $('.box').fadeToggle('slow');
+            })
+            
+
+            // 上滑与下滑
+            $('.btn7').click(function(){
+                $('.box').slideUp('slow');
+            })
+            $('.btn8').click(function(){
+                $('.box').slideDown('fast');
+            })
+
+            $('.btn9').click(function(){
+                $('.box').slideToggle(500);
+            })
+
+
+            // 动画
+            // 默认情况下，所有的 HTML 元素有一个静态的位置，且是不可移动的。 如果需要改变，我们需要将元素的 position 属性设置为 relative, fixed, 或 absolute!
+            $('.btn10').click(function(){
+                $('.box').animate({
+                    left:'250px',
+                    // 不透明度
+                    opacity: '1',
+                    height: '250px',
+                    width: '250px'
+                },5000);
+                $('.box').animate({
+                    left:'0'
+                },3000)
+            })
+
+            // 清除效果与动画
+            $('.btn11').click(function(){
+                // stop() 默认停止当前动画， 执行下一个动画
+                // stop(true) 停止所有队列中要执行的动画
+                $('.box').stop(true);
+            })
+        
+
+        })
+        
+    </script>
+</body>
+</html>
