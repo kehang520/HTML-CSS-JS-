@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery-ajax 实现图书添加删减</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .main{
+            margin: 20px auto;
+            width: 500px;
+        }
+        table{
+            width: 500px;
+            border: 1px solid #ccc;
+            border-collapse: collapse;
+        }
+        td,th{
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="add">
+            <p>
+                书名：<input type="text" id="book">
+            </p>
+            <p>
+                作者：<input type="text" name="" id="author">
+            </p>
+            <p>
+                出版社： <input type="text" name="" id="publisher">
+            </p>
+            <button class="btn">添加图书</button>
+        </div>
+        <table>
+            <thead>
+                <th>id</th>
+                <th>书名</th>
+                <th>作者</th>
+                <th>出版社</th>
+                <th>操作</th>
+            </thead>
+
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+        // jQuery 封装好的函数
+        // $.get(url,[data],callback)   // 可以直接获取服务器中数据
+        // $.post(url,[data],callback)  // 上传数据
+        // $.ajax()                     // ajax 方式获取上传数据
+
+        $(function(){
+            function getBookList(){
+                // 重新渲染前 先清空tbody
+                $('tbody').empty();
+                $.get('http://www.liulongbin.top:3006/api/getbooks',function(res){
+                // console.log(res);
+                res.data.forEach(value=>{
+                    var tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${value.id}</td>
+                            <td>${value.bookname}</td>
+                            <td>${value.author}</td>
+                            <td>${value.publisher}</td>
+                            <td>
+                                <a href='javascript:;' class='del' id=${value.id}>删除</a>
+                            </td>
+                        `
+                        $('tbody').append(tr);
+                    })
+
+                    // 删除
+                    var del = $('.del');
+                    for(var i = 0; i < del.length; i++){
+                        del[i].addEventListener('click',function(){
+                            $.get('http://www.liulongbin.top:3006/api/delbook',{id:this.id},function(res){
+                                // $.parseJSON(res) // jQuery中的 返回值 已经转换为json对象了
+                                // console.log(res, '1');  
+                                if(res.status === 200){
+                                    getBookList();
+                                    alert(res.msg);
+                                }else return alert(res.msg)
+                            })
+                        })
+                    }
+                })
+            }
+            // 渲染页面
+            getBookList();
+            
+            // 添加
+            $('.btn').click(function(){
+                // 获取输入值
+                var bName = $('#book').val();
+                var author = $('#author').val();
+                var publish = $('#publisher').val();
+
+                // 请求传递
+                $.post('http://www.liulongbin.top:3006/api/addbook',{
+                    bookname: bName,
+                    author:author,
+                    publisher:publish
+                    }, function(res){
+                        if(res.status === 201){
+                            console.log(res);
+                            getBookList();  
+                        }else return alert(res.msg);
+                    })
+            })  
+            
+        })
+    </script>
+</body>
+</html>
